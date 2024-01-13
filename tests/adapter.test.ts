@@ -4,7 +4,7 @@ import {Cypher} from "../src/";
 import {Utils} from "@orbifold/utils";
 import _ from "lodash";
 import path from "path";
-import {pathQueryToCypher} from "../src/cypherAdapter";
+import {pathQueryToCypher} from "../";
 
 const AdapterId = "cypher";
 

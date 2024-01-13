@@ -11,7 +11,7 @@ npm install @orbifold/cypher
 
 ```js
 import {Qwiery} from "@orbifold/dal";
-import {Cypher} from "@orbifold/qwiery-cypher";
+import {Cypher} from "@orbifold/cypher";
 // add the plugin to Qwiery
 Qwiery.plugin(Cypher);
 const q = new Qwiery({
