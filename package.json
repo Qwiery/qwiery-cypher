@@ -19,7 +19,7 @@
     "node": ">=21"
   },
   "private": false,
-  "version": "4.1.2",
+  "version": "4.1.5",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",

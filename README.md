@@ -34,7 +34,7 @@ const ConnectionDefaults = {
 	protocol: "bolt",
 	host: "localhost",
 	port: 7687,
-	user: "neo4j",
+	username: "neo4j",
 	password: "123456789",
 	defaultNodeLabel: "Thing",
 	defaultEdgeLabel: "RelatedTo",

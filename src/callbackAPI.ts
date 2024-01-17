@@ -1,22 +1,16 @@
 import { toCypher } from "~/projections";
 import { parseProjection } from "@orbifold/projections";
 import { Errors, Utils } from "@orbifold/utils";
-import neo4j, { session } from "neo4j-driver";
+import neo4j from "neo4j-driver";
 import _ from "lodash";
 import { Graph } from "@orbifold/graphs";
-import * as console from "console";
-import * as console from "console";
-import { e, s } from "vitest/dist/reporters-O4LBziQ_";
-import { name } from "moment";
-import { b, g } from "vitest/dist/suite-dF4WyktM";
-import path from "path";
-import { pathQueryToCypher } from "../dist";
+
 
 const DefaultOptions = {
 	protocol: "bolt",
 	host: "localhost",
 	port: 7687,
-	user: "neo4j",
+	username: "neo4j",
 	password: "123456789",
 	defaultNodeLabel: "Thing",
 	defaultEdgeLabel: "RelatedTo",
@@ -116,7 +110,7 @@ export class CallbackAPI {
 		if(this.driver){
 			this.driver.close();
 		}
-		this.driver = this.getDriver(this._options);
+		this.driver = this.getDriver();
 	}
 	public driver: any;
 	private _options: any;
@@ -131,11 +125,11 @@ export class CallbackAPI {
 
 
 
-	getDriver(opt: any = {}) {
+	getDriver() {
 		try {
-			opt = _.assign(DefaultOptions, opt);
-			console.log(`${opt.protocol}://${opt.host}:${opt.port}/${opt.database}`);
-			return neo4j.driver(`${opt.protocol}://${opt.host}:${opt.port}`, neo4j.auth.basic(opt.user, opt.password));
+			const opt = _.assign(DefaultOptions, this._options);
+			console.log(`Neo4j connection string: ${opt.protocol}://${opt.host}:${opt.port}/${opt.database}`);
+			return neo4j.driver(`${opt.protocol}://${opt.host}:${opt.port}`, neo4j.auth.basic(opt.username, opt.password));
 		} catch (e: any) {
 			console.error(e.message);
 		}
