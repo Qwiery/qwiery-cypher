@@ -1,8 +1,4 @@
-import { CallbackAPI, pathQueryToCypher } from "~/callbackAPI";
-import { toCypher } from "~/projections";
-import { parseProjection } from "@orbifold/projections";
-import { Errors, Utils } from "@orbifold/utils";
-import { Graph } from "@orbifold/graphs";
+import { CallbackAPI } from "~/callbackAPI";
 
 
 /**
@@ -10,11 +6,17 @@ import { Graph } from "@orbifold/graphs";
  * The odd-looking twist from callbacks to promises is because the callback API is used by Qwiery DAL.
  */
 export class GraphAPI {
-	private options: any;
+	public get options(): any {
+		return this.callbackAPI.options;
+	}
+
+	public set options(value: any) {
+		this.callbackAPI.options = value;
+	}
+
 	private callbackAPI: CallbackAPI;
 
 	constructor(options: any = {}) {
-		this.options = options;
 		this.callbackAPI = new CallbackAPI(options);
 
 	}

@@ -1,9 +1,16 @@
 import { toCypher } from "~/projections";
 import { parseProjection } from "@orbifold/projections";
 import { Errors, Utils } from "@orbifold/utils";
-import neo4j from "neo4j-driver";
+import neo4j, { session } from "neo4j-driver";
 import _ from "lodash";
 import { Graph } from "@orbifold/graphs";
+import * as console from "console";
+import * as console from "console";
+import { e, s } from "vitest/dist/reporters-O4LBziQ_";
+import { name } from "moment";
+import { b, g } from "vitest/dist/suite-dF4WyktM";
+import path from "path";
+import { pathQueryToCypher } from "../dist";
 
 const DefaultOptions = {
 	protocol: "bolt",
@@ -100,16 +107,29 @@ export const pathQueryToCypher = (pathQuery, amount = 100) => {
  * The API is used both by the ES GraphAPI (client-side direct access to Neo4j) and the Neo4j GraphAPI (server-side direct access to Neo4j).
  */
 export class CallbackAPI {
+	get options(): any {
+		return this._options;
+	}
+
+	set options(value: any) {
+		this._options = value;
+		if(this.driver){
+			this.driver.close();
+		}
+		this.driver = this.getDriver(this._options);
+	}
 	public driver: any;
-	public options: any;
+	private _options: any;
 
 	constructor(options) {
 		this.driver = this.getDriver();
-		this.options = options;
+		this._options = options;
 	}
 	async close(){
 		await this.driver.close();
 	}
+
+
 
 	getDriver(opt: any = {}) {
 		try {
@@ -127,8 +147,8 @@ export class CallbackAPI {
 	 * @returns {*}
 	 */
 	getSession(): any {
-		if (this.options && !Utils.isEmpty(this.options.database)) {
-			return this.driver.session({ database: this.options.database });
+		if (this._options && !Utils.isEmpty(this._options.database)) {
+			return this.driver.session({ database: this._options.database });
 		} else {
 			return this.driver.session();
 		}
